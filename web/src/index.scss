@@ -1,3 +1,7 @@
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,6 +20,7 @@ code {
   cursor: pointer;
   border: none;
   border-radius: 2px;
+  display: inline-block;
   text-decoration: none;
   text-align: center;
   letter-spacing: .5px;
@@ -55,4 +60,8 @@ h2 {
   font-size: 3.56rem;
   line-height: 110%;
   margin: 2.3733333333rem 0 1.424rem 0;
+}
+
+@for $i from 1 through 10 {
+  .mt-#{$i * 10} { margin-top: 10px * $i !important; }
 }
