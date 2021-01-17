@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import reposServices from '../../services/reposServices'; // TODO: Add alias
 import FeedbackMessage from '../FeedbackMessage/FeedbackMessage';
+import Spinner from '../Spinner/Spinner';
 
 import './RepoInfo.scss';
 
@@ -12,11 +13,13 @@ const DISPLAY_DATE_FORMAT = 'dddd, MMMM Do YYYY, h:mm:ss a';
 const RepoInfo = () => {
   const [repoInfo, setRepoInfo] = useState();
   const [apiError, setApiError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { fullName } = useParams();
 
   useEffect(() => {
     // Wrap getRepoInfo in a non-async call
     const getRepoInfo = async () => {
+      setLoading(true);
       setApiError(null); // Reset error
       try {
         const latestCommit = await reposServices.getLatestCommitByRepo(
@@ -28,6 +31,7 @@ const RepoInfo = () => {
           commit: latestCommit.length ? latestCommit[0].commit : null,
           readme,
         });
+        setLoading(false);
       } catch (error) {
         // Failed to find commits from this Repo, probably because the repo doesn't exist!
         if (error.response && error.response.status === 404) {
@@ -35,6 +39,7 @@ const RepoInfo = () => {
         } else {
           setApiError(`Unhandled error from the server.`);
         }
+        setLoading(false);
       }
     };
     getRepoInfo();
@@ -43,6 +48,7 @@ const RepoInfo = () => {
   return (
     <div className="repo-info-container">
       <h1 className="header">Repository details</h1>
+      <Spinner show={loading} altText="Loading repository data..." />
       {repoInfo && (
         <div>
           {repoInfo.commit && (

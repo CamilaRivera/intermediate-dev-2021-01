@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 
 import './RepoList.scss';
 import FeedbackMessage from '../FeedbackMessage/FeedbackMessage';
+import Spinner from '../Spinner/Spinner';
 
 const ALL_LANGUAGES = 'All languages';
 const ACTIVE_BUTTON_CLASSES = 'btn btn-primary';
-const BUTTON_CLASSES = 'btn btn-primary';
+const BUTTON_CLASSES = 'btn';
 
 const getLanguages = (repos) => {
   const languages = { all: ALL_LANGUAGES };
@@ -25,7 +26,7 @@ const RepoList = () => {
   const [reposList, setReposList] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState(ALL_LANGUAGES);
   const [apiError, setApiError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const availableLanguages = getLanguages(reposList);
 
@@ -68,7 +69,7 @@ const RepoList = () => {
           actionButton={apiErrorMessageButton}
         />
       )}
-      {loading && <img src="/spinner.gif" alt="Loading api data..." />}
+      <Spinner show={loading} altText="Loading api data..." />
       {reposList.length > 0 && (
         <>
           <div className="languages-filter-container">
