@@ -1,0 +1,44 @@
+.repos-list-container {
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  
+  
+  .repo-list-item {
+    border-bottom: 1px solid #e0e0e0;
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    
+    .header {
+      font-size: 140%;
+    }
+    
+    .subheader {
+      color: #777;
+      font-size: 90%;
+    }
+    
+    > div + div {
+      margin-top: 8px;
+    }
+    
+    span {
+      color: #000;
+      display: inline-block;
+      // box-shadow: 1px 1px 1px 1px gray;
+      font-size: 70%;
+      margin-top: 5px;
+      background-color: #f1f1f1;
+      padding: 6px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.languages-filter-container {
+  padding: 20px;
+
+  button {
+    margin: 10px;
+  }
+}
