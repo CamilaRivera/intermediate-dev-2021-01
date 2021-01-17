@@ -11,7 +11,7 @@ export function App() {
     <div className="App">
       <Switch>
         <Route exact={true} path="/" component={RepoList} />
-        <Route path="/repos/:name" component={RepoInfo} />
+        <Route path="/repos/:fullName+" component={RepoInfo} />
       </Switch>
     </div>
   );

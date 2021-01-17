@@ -1,0 +1,12 @@
+.feedback-message {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px;
+  background: #ffeaea;
+  color: red;
+
+  button {
+    margin-left: 20px;
+  }
+}

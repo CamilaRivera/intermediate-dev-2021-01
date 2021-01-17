@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import reposServices from '../../services/reposServices'; // TODO: Add alias
 
-const getRepoInfo = async (repoName, setRepoInfo) => {
+const getRepoInfo = async (repoFullName, setRepoInfo) => {
   try {
-    const latestCommit = await reposServices.getLatestCommitByRepo(repoName);
-    const readme = await reposServices.getReadmeByRepo(repoName);
+    const latestCommit = await reposServices.getLatestCommitByRepo(
+      repoFullName
+    );
+    const readme = await reposServices.getReadmeByRepo(repoFullName);
 
     console.log('readme', readme);
     setRepoInfo({
@@ -19,13 +22,14 @@ const getRepoInfo = async (repoName, setRepoInfo) => {
 
 const RepoInfo = () => {
   const [repoInfo, setRepoInfo] = useState();
-  const { name } = useParams();
+  const { fullName } = useParams();
 
   console.log('repoInfo', repoInfo);
+  console.log('params', fullName);
 
   useEffect(() => {
-    getRepoInfo(name, setRepoInfo);
-  }, [name]);
+    getRepoInfo(fullName, setRepoInfo);
+  }, [fullName]);
 
   return (
     <div>
@@ -33,6 +37,7 @@ const RepoInfo = () => {
         <div>
           {repoInfo.commit.author.name}, {repoInfo.commit.author.date},{' '}
           {repoInfo.commit.message}
+          {repoInfo.readme && <ReactMarkdown source={repoInfo.readme} />}
         </div>
       )}
     </div>

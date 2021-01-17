@@ -1,31 +1,15 @@
 import axios from 'axios';
 
 const getReposList = async () => {
-  try {
-    const reposList = await axios.get(' http://localhost:4000/repos');
-    return reposList.data;
-  } catch (err) {
-    if (err.response && err.response.data) {
-      throw err.response.data;
-    } else {
-      throw err;
-    }
-  }
+  const reposList = await axios.get(' http://localhost:4000/repos');
+  return reposList.data;
 };
 
 const getLatestCommitByRepo = async (fullNameRepo) => {
-  try {
-    const reposList = await axios.get(
-      `https://api.github.com/repos/silverorange/${fullNameRepo}/commits?per_page=1`
-    );
-    return reposList.data;
-  } catch (err) {
-    if (err.response && err.response.data) {
-      throw err.response.data;
-    } else {
-      throw err;
-    }
-  }
+  const reposList = await axios.get(
+    `https://api.github.com/repos/${fullNameRepo}/commits?per_page=1`
+  );
+  return reposList.data;
 };
 
 const getReadmeByRepo = async (fullNameRepo) => {
@@ -35,11 +19,7 @@ const getReadmeByRepo = async (fullNameRepo) => {
     );
     return reposList.data;
   } catch (err) {
-    // if (err.response && err.response.data) {
-    //   throw err.response.data;
-    // } else {
-    //   throw err;
-    // }
+    // Only some repositories have README.md.
     return null;
   }
 };
