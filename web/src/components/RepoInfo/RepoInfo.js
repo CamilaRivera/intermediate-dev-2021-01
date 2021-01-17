@@ -1,16 +1,18 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import reposServices from '../../services/reposServices'; // TODO: Add alias
 import FeedbackMessage from '../FeedbackMessage/FeedbackMessage';
 
+import './RepoInfo.scss';
+
+const DISPLAY_DATE_FORMAT = 'dddd, MMMM Do YYYY, h:mm:ss a';
+
 const RepoInfo = () => {
   const [repoInfo, setRepoInfo] = useState();
   const [apiError, setApiError] = useState(null);
   const { fullName } = useParams();
-
-  console.log('repoInfo', repoInfo);
-  console.log('params', fullName);
 
   useEffect(() => {
     // Wrap getRepoInfo in a non-async call
@@ -23,7 +25,7 @@ const RepoInfo = () => {
         // Readme is optional, the service will return null if there is none
         const readme = await reposServices.getReadmeByRepo(fullName);
         setRepoInfo({
-          commit: latestCommit[0].commit,
+          commit: latestCommit.length ? latestCommit[0].commit : null,
           readme,
         });
       } catch (error) {
@@ -39,14 +41,39 @@ const RepoInfo = () => {
   }, [fullName]);
 
   return (
-    <div>
+    <div className="repo-info-container">
       <h1 className="header">Repository details</h1>
-
       {repoInfo && (
         <div>
-          {repoInfo.commit.author.name}, {repoInfo.commit.author.date},{' '}
-          {repoInfo.commit.message}
-          {repoInfo.readme && <ReactMarkdown source={repoInfo.readme} />}
+          {repoInfo.commit && (
+            <div className="commit-card card">
+              <div class="header">Latest commit</div>
+              <div className="commit-details">
+                <span>Author: </span>
+                {repoInfo.commit.author.name}
+                <br />
+                <span>Date: </span>
+                {moment(repoInfo.commit.author.date).format(
+                  DISPLAY_DATE_FORMAT
+                )}
+                <br />
+                <span>Message: </span>
+                {repoInfo.commit.message}
+                <br />
+              </div>
+            </div>
+          )}
+          {repoInfo.readme && (
+            <>
+              <Link to={'/'} className="btn btn-primary mt-40">
+                Back to the repositories list
+              </Link>
+              <div className="card markdown-box">
+                <div class="header">README.md</div>
+                <ReactMarkdown className="p-40" source={repoInfo.readme} />
+              </div>
+            </>
+          )}
         </div>
       )}
       {apiError && <FeedbackMessage message={apiError} />}

@@ -1,0 +1,32 @@
+.repo-info-container {
+  padding-bottom: 40px;
+
+  .markdown-box {
+    margin-top: 40px;
+    padding: 30px 40px;
+    text-align: left;
+
+    pre {
+      overflow: hidden;
+    }
+  }
+
+  .card .header {
+    font-weight: 500;
+    font-size: 120%;
+    margin-bottom: 20px;
+  }
+
+  .commit-card {
+    padding: 30px 40px;
+    text-align: left;
+
+    .commit-details {
+      line-height: 1.4rem;
+      span {
+        color: #999;
+      }
+    }
+  }
+
+}

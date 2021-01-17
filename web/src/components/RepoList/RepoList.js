@@ -3,11 +3,9 @@ import reposServices from '../../services/reposServices'; // TODO: Add alias
 import { Link } from 'react-router-dom';
 
 import './RepoList.scss';
-import moment from 'moment';
 import FeedbackMessage from '../FeedbackMessage/FeedbackMessage';
 
 const ALL_LANGUAGES = 'All languages';
-const DISPLAY_DATE_FORMAT = 'dddd, MMMM Do YYYY, h:mm:ss a';
 const ACTIVE_BUTTON_CLASSES = 'btn btn-primary';
 const BUTTON_CLASSES = 'btn btn-primary';
 
@@ -102,10 +100,6 @@ const RepoList = () => {
                     Description: {repo.description || 'N/A'}
                   </div>
                   <div>
-                    <span>
-                      Creation Date:{' '}
-                      {moment(repo.created_at).format(DISPLAY_DATE_FORMAT)}
-                    </span>
                     <span>Language: {repo.language}</span>
                     <span>Fork count: {repo.forks_count}</span>
                   </div>
