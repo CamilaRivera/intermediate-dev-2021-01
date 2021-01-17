@@ -40,7 +40,6 @@ const RepoList = () => {
     setLoading(true);
     try {
       const repos = await reposServices.getReposList();
-      console.log(repos);
       setReposList(
         repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       );

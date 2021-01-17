@@ -8,7 +8,7 @@ const FeedbackMessage = ({ message, actionButton }) => {
     <div className="feedback-message">
       <div>{message}</div>
       {actionButton && (
-        <button class="btn" onClick={actionButton.callback}>
+        <button className="btn" onClick={actionButton.callback}>
           {actionButton.text}
         </button>
       )}

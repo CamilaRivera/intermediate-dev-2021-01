@@ -53,7 +53,7 @@ const RepoInfo = () => {
         <div>
           {repoInfo.commit && (
             <div className="commit-card card">
-              <div class="header">Latest commit</div>
+              <div className="header">Latest commit</div>
               <div className="commit-details">
                 <span>Author: </span>
                 {repoInfo.commit.author.name}
@@ -75,7 +75,7 @@ const RepoInfo = () => {
                 Back to the repositories list
               </Link>
               <div className="card markdown-box">
-                <div class="header">README.md</div>
+                <div className="header">README.md</div>
                 <ReactMarkdown className="p-40" source={repoInfo.readme} />
               </div>
             </>
